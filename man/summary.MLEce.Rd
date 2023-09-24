@@ -3,7 +3,7 @@
 \name{summary.MLEce}
 \alias{summary.MLEce}
 \alias{print.summary.MLEce}
-\title{Summarizing MLEce function}
+\title{Summarizing effective closed-form estimation function}
 \usage{
 \method{summary}{MLEce}(object, ...)
 
@@ -14,19 +14,34 @@
 
 \item{...}{not used, but exists because of the compatibility.}
 
-\item{x}{an object of class "MLEce".}
+\item{x}{an object of class "summary.MLEce".}
 
 \item{digits}{a numeric number of significant digits.}
 }
 \value{
-\code{summary} describes information about MLEce. (quantile statistics, correlation, estimates)
+\code{summary} presents information about effective closed-form estimators calculated by \code{MLEce} containing the following components.
+\item{Distribution}{the distribution assigned to fit the data to.}
+\item{Quantile}{a numeric vector describing the data set with min, 1st quantile, median, 3rd quantile, and max values.}
+\item{Correlation}{correlation coefficient between two vectors of the data}
+\item{Estimation}{estimated values of parameters, standard error and confidence intervals are given.}
 }
 \description{
 \code{summary} method for a class "MLEce".
 }
 \examples{
-datt = rBiGam(100, c(1,4,5))
-res = MLEce(datt, "BiGam", boots = 50)
-summary(res)
-
+#bivariate gamma distribution
+data(flood)
+est_res1 <- MLEce(flood, "BiGam")
+summary(est_res1)
+#bivariate Weibull distribution
+datt = rBiWei(n=50, c(2,3,3,4,0.4))
+est_res2 <-MLEce(datt, "BiWei")
+summary(est_res2)
+#Dirichilet distribution
+data(fossil_pollen) 
+fossil_data <- fossil_pollen/rowSums(fossil_pollen)
+eps <- 1e-10
+fossil_data <- (fossil_data +eps)/(1+2*eps)
+est_res3 <- MLEce(fossil_data, "Dirichlet")
+summary(est_res3)
 }

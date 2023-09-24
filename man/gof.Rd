@@ -3,7 +3,7 @@
 \name{gof}
 \alias{gof}
 \alias{print.gof}
-\title{test goodness of fit}
+\title{Goodness-of-fit test for the efficient closed-form estimators}
 \usage{
 gof(x, digits = max(3, getOption("digits") - 3), ...)
 
@@ -14,19 +14,25 @@ gof(x, digits = max(3, getOption("digits") - 3), ...)
 
 \item{digits}{a numeric number of significant digits.}
 
-\item{...}{not used, but exists because of the compatibility.}
-}
-\value{
-\code{gof} returns the p-value of the GCVM test.
+\item{...}{additional arguments affecting the goodness-of-fit test.}
 }
 \description{
-test goodness of fit
+Goodness-of-fit test for the efficient closed-form estimators
 }
 \details{
-The null hypothesis of the GCVM test is that "data follows the Bivariate Weibull distribution".
+Generalized Cramer-von Mises test (chiu and Liu, 2009) is applied to do the goodness-of-fit test for multivariate distributions. For the bivariate gamma and Dirichlet distributions, the L2-symmetric discrepancy (SD2) statistics are applied. But the L2-centred discrepancy (CD2) statistics are applied in the bivariate Weibull distribution.
 }
 \examples{
-datt = rBiGam(100, c(1,4,5))
-res = MLEce(datt, "BiGam", boots = 50)
-gof(res)
+data_BiGam <-  rBiGam(100, c(1,4,5))
+res_BiGam  <- MLEce(data_BiGam, "BiGam")
+gof(res_BiGam)
+datt = rBiWei(n=50, c(4,3,3,4,0.6))
+est_BiWei <-MLEce(datt, "BiWei")
+gof(est_BiWei)
+data_Diri <- LaplacesDemon::rdirichlet(n=60, c(3,1,2,4))
+est_Diri <- MLEce(data_Diri, "Dirichlet")
+gof(est_Diri)
+}
+\references{
+chiu, S. N. and Liu, K. I. (2009) Generalized Cramer-Von Mises goodness-of-fit tests for multivariate distributions. \emph{Computational Statistics and Data Analysis}, 53, 3817-3834.
 }

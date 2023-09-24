@@ -5,15 +5,21 @@
 \alias{flood}
 \title{The flood events data of the Madawaska basin.}
 \format{
-A 2 variables data frame with 77 observations.
+A dataframe with 2 variables and 77 observations as follows:
+\describe{
+\item{Vnorm}{daily average flood volume}
+\item{Q}{ flood peak}
+}
 }
 \usage{
 data(flood, package = "MLEce")
 }
 \description{
-It represents the flood events data of the Madawaska basin from 1911 to 1995. (Yue, 2001).
+The data is a subset of the flood events data of the Madawaska basin which is located in the province of Qebec, Canada. Daily streamflow data from 1919 to 1995 are available from HYDAT CD (1998) and Yue (2001).
 }
 \references{
-Yue, S. (2001). \url{doi:10.1002/hyp.259}.
+Environment Canada (1998), HYDAT CD-ROM Version 98-1.05.8: Surface water and sediment data.
+
+Yue. S. (2001) A bivariate gamma distribution for use in multivariate flood frequency analysis. \emph{Hydrological Processes}, 15, 1033–1045.
 }
 \keyword{datasets}

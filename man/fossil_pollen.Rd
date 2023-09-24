@@ -3,17 +3,17 @@
 \docType{data}
 \name{fossil_pollen}
 \alias{fossil_pollen}
-\title{The counts data of the frequency of occurrence of different kinds of pollen grains.}
+\title{The counts data of the frequency of occurrence of different kinds of fossil pollen grains.}
 \format{
-A 4 variables data frame with 73 observations.
+A dataframe with 73 observations and 4 variables: pinus, abies, quercus and alnus pollens.
 }
 \usage{
 data(fossil_pollen, package = "MLEce")
 }
 \description{
-It represents the counts data of the frequency of occurrence of different kinds of pollen grains. (Mosimann, 1962).
+The data is about the counts of the frequency of occurrence of different kinds of fossil pollen grains and is available in Mosimann (1962).
 }
 \references{
-Mosimann, James E. (1962) \url{doi:10.1093/biomet/49.1-2.65}.
+Mosimann, J. E. (1962) On the compound multinomial distribution, the multivariate beta distribution, and correlations among proportions. \emph{Biometrika}, 49, 65-82.
 }
 \keyword{datasets}

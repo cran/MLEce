@@ -2,27 +2,31 @@
 % Please edit documentation in R/MLEce.R
 \name{coef.MLEce}
 \alias{coef.MLEce}
-\alias{print.coef.MLEce}
-\title{Extracting estimates.
-\code{coef} extracts estimated parameters.}
+\title{Getting estimated values of efficient closed-form estimators}
 \usage{
 \method{coef}{MLEce}(object, digits = max(3, getOption("digits") - 3), ...)
-
-\method{print}{coef.MLEce}(x, digits = max(3, getOption("digits") - 3), ...)
 }
 \arguments{
-\item{object}{an object of class "MLEce" made by the function \code{MLEce}.}
+\item{object}{an object of class \code{"MLEce"} made by the function \code{MLEce}.}
 
 \item{digits}{a numeric number of significant digits.}
 
 \item{...}{not used, but exists because of the compatibility.}
-
-\item{x}{an object of class "MLEce".}
 }
 \value{
-estimated parameters are extracted from the "MLEce" class.
+a numeric vector or a list, containing assigned distribution and estimated values, is given.
 }
 \description{
-Extracting estimates.
-\code{coef} extracts estimated parameters.
+Getting estimated values of efficient closed-form estimators
+}
+\examples{
+data_BiGam = rBiGam(100, c(1,4,5))
+res_BiGam = MLEce(data_BiGam, "BiGam")
+coef(res_BiGam)
+data_BiWei = rBiWei(n=50, c(4,3,3,4,0.6))
+est_BiWei <-MLEce(data_BiWei, "BiWei")
+coef(est_BiWei)
+data_Diri <- LaplacesDemon::rdirichlet(n=60, c(3,1,2,4))
+est_Diri <- MLEce(data_Diri, "Dirichlet")
+coef(est_Diri)
 }

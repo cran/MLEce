@@ -2,49 +2,60 @@
 % Please edit documentation in R/MLEce.R
 \name{MLEce}
 \alias{MLEce}
-\alias{print.MLEce}
-\title{Calculating a value of MLEce according to a distribution}
+\title{Calculating MLEces for three different distributions}
 \usage{
-MLEce(data, distrib, boots = 1000, CI.alpha = 0.05, ...)
-
-\method{print}{MLEce}(x, digits = max(3, getOption("digits") - 3), ...)
+MLEce(data, distname)
 }
 \arguments{
-\item{data}{a numeric vector or matrix.}
+\item{data}{a numeric matrix.}
 
-\item{distrib}{a character string "name" naming a distribution for which the corresponding density function dname
-and the corresponding distribution function pname must be classically defined.}
-
-\item{boots}{a number of iteration for calculating CI-parametric intervals.}
-
-\item{CI.alpha}{a significance level of confidence intervals. default is 0.05.}
-
-\item{...}{not used, but exists because of the compatibility.}
-
-\item{x}{an object of class "MLEce".}
-
-\item{digits}{a numeric number of significant digits.}
+\item{distname}{a character indicating which distribution to be fitted. \code{BiGam} stands for the bivariate gamma distribution, \code{BiWei} stands for the bivariate Weibull distribution, and \code{Dirichlet} stands for the multivariate Dirichlet distribution.}
 }
 \value{
-an object of class “MLEce”. It is a list with the following components:
-\item{estimation}{the parameter estimates.}
-\item{distribution }{a character string of a distribution assuming that data set comes from.}
-\item{stat_summary}{a numeric vector with min, 1st quantile, median, 3rd quantile, and max.}
-\item{CI}{a matrix with confidence intervals of Estimates obtained by CI-parametric bootstrapping.}
-\item{n}{a numeric value of data length.}
-\item{data}{the data set.}
+\code{MLEce} returns an object of class \code{"MLEce"}. The object class \code{"MLEce"} is a list containing the following components.
+\item{distribution }{a character string of a distribution assuming that data set comes from and the data was fitted to.}
+\item{estimation}{the estimated values of parameters in assigned distribution.}
 }
 \description{
-Provide a function that numerically computes the closed-form estimator which is asymptotically efficient and
-can be computed faster than the maximum likelihood estimator.
+The closed-form estimators (MLEces) are calculated for three distributions: bivariate gamma, bivariate Weibull and multivariate Dirichlet.
 }
 \details{
-The closed-form estimation procedure is based on root n-consistent estimators and a Fisher scoring step or a Newton step on the loglikelihood function.
-The estimator is obtained by solving the linear equation By E.L. Lehmann.
-This estimator follows the multivariate normal distribution with mean vector of 0 and variance matrix of inverse of Fisher Information matrix and
-has the properties of a multivariate normal distribution.
+Based on root n-consistent estimators, the closed-form estimators (MLEces) are calculated for the parameters in bivariate gamma, bivariate Weibull and multivariate Dirichlet distributions whose maximum likelihood estimators (MLEs) are not in closed forms. The MLEces are strong consistent and asymptotic normally like the corresponding MLEs, but their calculation are much faster than MLEs. For the bivariate gamma and multivariate Dirichlet distribution, their root n-consistent estimators are the corresponding method of moments estimators (MMEs). The correlation-based estimators (CMEs) are applied as root n-consistent estimators in the bivariate Weibull distribution.
 }
 \examples{
-datt = rBiGam(100, c(1,4,5))
-res = MLEce(datt, "BiGam", boots = 50)
+#bivariate gamma distribution
+data_BiGam <-  rBiGam(100, c(1,4,5))
+res_BiGam  <- MLEce(data_BiGam, "BiGam")
+print(res_BiGam)
+data(flood)
+est_BiGam <- MLEce(flood, "BiGam")
+print(est_BiGam)
+#bivariate Weibull distribution
+data_BiWei <- rBiWei(n=30, c(4,3,3,4,0.6))
+res_BiWei <- MLEce(data_BiWei, "BiWei")
+print(res_BiWei)
+#real data example
+data(airquality)
+air_data <- airquality[ ,3:4]
+air_data[ ,2] <- air_data[ ,2]*0.1
+est_BiWei <- MLEce(air_data, "BiWei")
+gof(est_BiWei)
+#Dirichlet distribution
+data_Diri <- LaplacesDemon::rdirichlet(n=60, c(1,2,3))
+res_Diri <- MLEce(data_Diri, "Dirichlet")
+print(res_Diri)
+data(fossil_pollen) 
+#real data example
+fossil_data <- fossil_pollen/rowSums(fossil_pollen)
+eps <- 1e-10
+fossil_data <- (fossil_data +eps)/(1+2*eps)
+est_fossil <- MLEce(fossil_data, "Dirichlet")
+print(est_fossil)
+}
+\references{
+Kim, H.-M., Jang, Y.-H., Arnold, B. C. and Zhao, J. (2023) New efficient estimators for the Weibull distribution. \emph{Communications in Statistics - Theory and Methods}, 1-26.
+
+Jang, Y.-H., Zhao, J., Kim, H.-M., Yu, K., Kwon, S.and Kim, S. (2023) New closed-form efficient estimator for the multivariate gamma distribution. \emph{Statistica Neerlandica}, 1–18.
+
+Chang, J. H., Lee, S. K. and Kim, H.-M. (2023) An asymptotically efficient closed–form estimator for the multivariate Dirichlet distribution. submitted.
 }
