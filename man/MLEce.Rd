@@ -39,7 +39,7 @@ data(airquality)
 air_data <- airquality[ ,3:4]
 air_data[ ,2] <- air_data[ ,2]*0.1
 est_BiWei <- MLEce(air_data, "BiWei")
-gof(est_BiWei)
+print(est_BiWei)
 #Dirichlet distribution
 data_Diri <- LaplacesDemon::rdirichlet(n=60, c(1,2,3))
 res_Diri <- MLEce(data_Diri, "Dirichlet")

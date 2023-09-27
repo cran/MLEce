@@ -2,9 +2,9 @@ Package: MLEce
 Type: Package
 Title: Asymptotic Efficient Closed-Form Estimators for Multivariate
         Distributions
-Version: 2.0.1
+Version: 2.1.0
 Authors@R: c(person("Jun", "Zhao", role = c("aut", "cre", "com"), email = "zhaojun2021@hotmail.com"),
-    person("Yu-Kwang", "Kim", role = c("aut"), email = "lumiere_profuse@naver.com"),
+    person("Yu-Kwang", "Kim", role = c("aut"), email = "prismyoo1231@naver.com"),
     person("Yu-Hyeong", "Jang", role = c("aut"), email = "jyhmaru@naver.com"),
     person("Jae Ho", "Chang", role = c("aut"), email = "chang.2090@buckeyemail.osu.eduwk"),
     person("Sang Kyu", "Lee", role = c("aut"), email= "lsk0819@gmail.com"),
@@ -19,7 +19,7 @@ LazyData: true
 RoxygenNote: 7.2.3
 Imports: nleqslv, LaplacesDemon, sirt, ggplot2, reshape ,mvtnorm
 NeedsCompilation: no
-Packaged: 2023-09-24 11:56:33 UTC; ABC2
+Packaged: 2023-09-27 14:00:42 UTC; ABC2
 Author: Jun Zhao [aut, cre, com],
   Yu-Kwang Kim [aut],
   Yu-Hyeong Jang [aut],
@@ -28,4 +28,4 @@ Author: Jun Zhao [aut, cre, com],
   Hyoung-Moon Kim [aut, ths]
 Maintainer: Jun Zhao <zhaojun2021@hotmail.com>
 Repository: CRAN
-Date/Publication: 2023-09-24 22:20:02 UTC
+Date/Publication: 2023-09-27 14:50:06 UTC

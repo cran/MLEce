@@ -37,7 +37,7 @@
 #' air_data <- airquality[ ,3:4]
 #' air_data[ ,2] <- air_data[ ,2]*0.1
 #' est_BiWei <- MLEce(air_data, "BiWei")
-#' gof(est_BiWei)
+#' print(est_BiWei)
 #' @examples
 #' #Dirichlet distribution
 #' data_Diri <- LaplacesDemon::rdirichlet(n=60, c(1,2,3))
@@ -230,7 +230,7 @@ benchMLEce <-  function(data, distname, methods){
       if(methods[i] == "MLEce")
      {
        timebeg <- Sys.time()
-       est_values=Diri_CE_bt( data   )$estimation
+       est_values=Diri_CE( data   )$estimation
        timeend <- Sys.time()
        restime[i] <- timeend - timebeg
        resestimate <- c(resestimate, list(est_values))
@@ -1225,7 +1225,22 @@ Diri_CE_bt <- function(x) {
   names(ans) <- c(paste("alpha", 1:m, sep=""))
   return(list(estimation=exp(ans), InvHess=iH) ) # back-transformation
 }
-
+Diri_CE <- function(x) {  # calculate closed-form estimator using data
+  m <- ncol(x)
+  MME <- Diri_MME(x)
+  c1 <- trigamma(c(sum(MME), MME))
+  denom <- 1 / c1[1] - sum(1 / c1[-1])
+  c2 <- digamma(c(sum(MME), MME))
+  iD <- diag(1 / c1[-1])
+  iH <-
+    iD %*% (diag(1, m) + matrix(1, nrow = m, ncol = m) %*% iD / denom)
+  grad <- as.matrix(colMeans(log(x)) - (c2[-1] - c2[1]),ncol=1 )
+  ans <- matrix(MME + as.vector(iH %*% grad),nrow=1)
+  otp = as.vector(pmax(ans, 1 / nrow(x)))
+  names(otp) <- c(paste("alpha", 1:m, sep=""))
+  estls = list(estimation = otp)
+  return(estls)
+}
 #----------------------------------------------------------------------------------
 # GCVM goodness of fit test---------------------------------------------------
 #----------------------------------------------------------------------------------
